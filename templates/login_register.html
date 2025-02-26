@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="container mx-auto mt-12">
+        {% if page == 'login' %}
+            <h2 class="text-center text-blue-600 text-2xl font-bold mb-6">Login</h2>
+            <form action="" method="post" class="shadow-lg p-6 rounded-lg bg-white">
+                {% csrf_token %}
+                
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700 font-medium mb-2">Email</label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <input type="submit" value="Login" class="w-full bg-blue-600 text-white font-medium p-3 rounded-md hover:bg-blue-700">
+                </div>
+            </form>
+
+            <p class="text-center mt-4 text-gray-700">Haven't signed up yet? 
+                <a href="{% url 'register' %}" class="text-blue-600 font-semibold hover:underline">Sign up</a>
+            </p>
+        
+        {% else %}
+            <h2 class="text-center text-green-600 text-2xl font-bold mb-6">Register</h2>
+            <form action="" method="post" class="shadow-lg p-6 rounded-lg bg-white">
+                {% csrf_token %}
+                <div class="mb-4">
+                    {{ form.as_p }}
+                </div>
+
+                <div>
+                    <input type="submit" value="Register" class="w-full bg-green-600 text-white font-medium p-3 rounded-md hover:bg-green-700">
+                </div>
+            </form>
+
+            <p class="text-center mt-4 text-gray-700">Already signed up? 
+                <a href="{% url 'login' %}" class="text-blue-600 font-semibold hover:underline">Login</a>
+            </p>
+        {% endif %}
+    </div>
+{% endblock content %}

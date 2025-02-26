@@ -1,0 +1,13 @@
+<ul class="space-y-4">
+    <li class="flex justify-between items-center">
+        <a href="{% url 'home' %}" class="text-blue-600 font-bold truncate">All</a>
+        <span class="bg-blue-600 text-white rounded-full px-3 py-1 text-sm">{{ room_count }}</span>
+    </li>
+    <hr class="border-gray-300">
+    {% for topic in topics %}
+        <li class="flex justify-between items-center">
+            <a href="{% url 'home' %}?search={{ topic.name }}" class="text-gray-700 truncate hover:underline">{{ topic }}</a>
+            <span class="bg-gray-600 text-white rounded-full px-3 py-1 text-sm">{{ topic.rooms_set.all.count }}</span>
+        </li>
+    {% endfor %}
+</ul>

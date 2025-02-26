@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+            {% block title %}
+            Study2Gether
+            {% endblock title %}
+        </title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'styles/main.css' %}">
+    </head>
+    <body class="bg-gray-100">
+        {% include 'navbar.html' %}
+        
+        {% if messages %}
+        <ul class="messages space-y-2 p-4">
+            {% for message in messages %}
+            <li class="bg-blue-100 text-blue-800 rounded p-2"> {{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

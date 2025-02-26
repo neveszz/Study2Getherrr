@@ -1,0 +1,47 @@
+{% load static %}
+<nav class="bg-blue-800 p-4 flex justify-between items-center text-white">
+    <a href="{% url 'home' %}" class="text-2xl font-bold hover:text-gray-300">Study2Gether</a>
+    <form class="flex items-center space-x-2" action="{% url 'home' %}" method="get">
+        <input type="search" name="search" placeholder="Search Rooms..." class="w-64 p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white">
+    </form>
+    {% if user.is_authenticated %}
+        <div class="relative">
+            <div class="flex items-center space-x-2">
+                <a href="{% url 'user_profile' user.pk %}"><img src="{{ user.avatar.url }}" alt="Avatar" class="rounded-full w-14 h-14"></a>
+                    <a href="{% url 'user_profile' user.pk %}"><span>{{ user.username|title }}</span></a>
+                <button id="profileDropdownBtn" class="focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06 0L10 10.94l3.71-3.73a.75.75 0 011.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 010-1.06z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+            </div>
+            <ul id="profileDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-md z-10">
+                <li><a href="{% url 'update_user' %}" class="block px-4 py-2 hover:bg-gray-100">Settings</a></li>
+                <li><a href="{% url 'logout' %}" class="block px-4 py-2 hover:bg-gray-100">Logout</a></li>
+            </ul>
+        </div>
+    {% else %}
+        <div class="flex space-x-4">
+            <a href="{% url 'login' %}" class="hover:text-gray-300">Login</a>
+            <a href="{% url 'register' %}" class="hover:text-gray-300">Register</a>
+        </div>
+    {% endif %}
+</nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const dropdownBtn = document.getElementById("profileDropdownBtn");
+        const dropdownMenu = document.getElementById("profileDropdownMenu");
+
+        dropdownBtn.addEventListener("click", (event) => {
+            event.stopPropagation(); // Impede que o clique feche imediatamente o menu
+            dropdownMenu.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!dropdownBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+    });
+</script>
